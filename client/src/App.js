@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
+import Table from './Table';
 
 class App extends Component {
   state = {
-    response: '',
+    routesData: [],
   };
 
   //TODO: Investigate if this is apporiate. 
   //Seems wrong according to here: https://reactjs.org/docs/react-component.html#componentdidmount
   componentDidMount() {
     this.callApi()
-      .then(res => this.setState({ response: res[0].name }))
+      .then(res => this.setState({ routesData: res }))
       .catch(err => console.log(err));
   }
 
@@ -22,6 +23,7 @@ class App extends Component {
   };
 
   render() {
+
     return (
       <div className="App">
         <header className="App-header">
@@ -30,7 +32,9 @@ class App extends Component {
           </p>
         </header>
         <h1>Routes</h1>
-        <p>{this.state.response}</p>
+        <div className="container">
+          <Table routesData={this.state.routesData}/>
+        </div>
       </div>
     );
   }
