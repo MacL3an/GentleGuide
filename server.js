@@ -39,11 +39,6 @@ app.get('/api/avalancheForecast/', function(req, res) {
   //lyngseidet
   //https://api01.nve.no/hydrology/forecast/avalanche/v4.0.2/api/AvalancheWarningByCoordinates/Simple/69.57584871428688/20.206546093750035/2/2019-02-11/2019-02-11
 
-// app.post('/api/world', (req, res) => {
-//   console.log(req.body);
-//   res.send(
-//     `I received your POST request. This is what you sent me: ${req.body.post}`,
-//   );
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

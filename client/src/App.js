@@ -12,13 +12,19 @@ class App extends Component {
   componentDidMount() {
     this.getRoutes()
       .then(res => this.setState({ routesData: res }))
-      .then(() => {
-        const routesCopy = this.state.routesData.map(route => {
-          // this.getAvalancheForecast(4,5)
-          //   .then(res => route.avalancheDanger = res[0].DangerLevel);
-          route.avalancheDanger = 5;
-        })
-        this.setState({routesCopy});
+      .then(() => 
+      {
+        for (let i = 0; i < this.state.routesData.length; i++) {
+          this.getAvalancheForecast(0,0).then(avalancheForecast => 
+            {
+              let routeCopy = { ...this.state.routesData[i] };
+              //TODO: Get [0] this safely
+              routeCopy.avalancheDanger = avalancheForecast[0].DangerLevel;
+              let routesCopy = this.state.routesData.slice();
+              routesCopy[i] = routeCopy;
+              this.setState({ routesData: routesCopy});
+            }).catch(err => console.log(err));
+        }
       })
       .catch(err => console.log(err));
   }
