@@ -7,7 +7,7 @@ class Table extends Component {
         return (
             <table>
                 <TableHeader />
-                <TableBody routesData ={this.props.routesData}/>
+                <TableBody routesData = {this.props.routesData}/>
             </table>
         );
     }

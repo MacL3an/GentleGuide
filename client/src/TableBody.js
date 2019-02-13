@@ -1,18 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
+import TableRow from './TableRow';
 
 const TableBody = props => {
     const rows = props.routesData.map((row, index) => {
         return (
-            <tr key={index}>
-                <td>{row.name}</td>
-                <td>{row.elevation}</td>
-            </tr>
+            <TableRow rowData={row} key={index}/> 
         );
     });
     return (
         <tbody>
             {rows}
-        </tbody>            
+        </tbody>      
     );
 }
 
