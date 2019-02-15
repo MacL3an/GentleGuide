@@ -15,11 +15,13 @@ class App extends Component {
       .then(() => 
       {
         for (let i = 0; i < this.state.routesData.length; i++) {
-          this.getAvalancheForecast(0,0).then(avalancheForecast => 
+          let x = this.state.routesData[i].trailHead.x;
+          let y = this.state.routesData[i].trailHead.y;
+          this.getAvalancheForecast(x,y).then(forecast => 
             {
               let routeCopy = { ...this.state.routesData[i] };
               //TODO: Get [0] this safely
-              routeCopy.avalancheDanger = avalancheForecast[0].DangerLevel;
+              routeCopy.avalancheDanger = forecast[0].DangerLevel;
               let routesCopy = this.state.routesData.slice();
               routesCopy[i] = routeCopy;
               this.setState({ routesData: routesCopy});
@@ -41,8 +43,7 @@ class App extends Component {
   }
 
   getAvalancheForecast = async (x,y) => {
-    const url = `/api/avalancheForecast/`;
-    // const url = `/api/avalancheForecast/${x}/${y}/`;
+    const url = `/api/avalancheForecast/${x}/${y}/`;
     const response = await fetch(url);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);

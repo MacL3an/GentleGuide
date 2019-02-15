@@ -14,7 +14,11 @@ app.get('/api/routes', function(req, res) {
           "ascent": 1200,
           "elevation": 1300,
           "terrainComplexity": 3,
-          "description": "A magnificent peak"
+          "description": "A magnificent peak",
+          "trailHead": {
+            "x": "69.57584871428688",
+            "y": "20.206546093750035"
+          }
       },
       {
           "name": "Minitind",
@@ -22,14 +26,18 @@ app.get('/api/routes', function(req, res) {
           "ascent": 300,
           "elevation": 400,
           "terrainComplexity": 1,
-          "description": "A boring peak"
+          "description": "A boring peak",
+          "trailHead": {
+            "x": "68.333332",
+            "y": "14.666664"
+          }
       }
 
   ]);
 })
 
-app.get('/api/avalancheForecast/', function(req, res) {
-  const url = 'https://api01.nve.no/hydrology/forecast/avalanche/v4.0.2/api/AvalancheWarningByCoordinates/Simple/69.57584871428688/20.206546093750035/2/2019-02-11/2019-02-11'
+app.get('/api/avalancheForecast/:x/:y', function(req, res) {
+  const url = `https://api01.nve.no/hydrology/forecast/avalanche/v4.0.2/api/AvalancheWarningByCoordinates/Simple/${req.params.x}/${req.params.y}/2/2019-02-11/2019-02-11`
   fetch(url)
     .then(result => result.json())  
     .then(result => {
@@ -40,5 +48,6 @@ app.get('/api/avalancheForecast/', function(req, res) {
   //https://api01.nve.no/hydrology/forecast/avalanche/v4.0.2/api/AvalancheWarningByCoordinates/Simple/69.57584871428688/20.206546093750035/2/2019-02-11/2019-02-11
 
 });
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
