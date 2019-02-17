@@ -26,7 +26,7 @@ code {
   display: table-cell;
   width: 600px;
   height: 600px;
-  background-color: red;
+  /* background-color: red; */
   float: left;
   margin-right: 50px;
 }

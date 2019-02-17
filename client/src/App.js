@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Table from './Table';
+import SimpleMap from './SimpleMap';
 
 class App extends Component {
   state = {
@@ -61,7 +62,7 @@ class App extends Component {
         {/* <h1>Routes</h1> */}
         <div id="container">
           <div id="map">
-            {/* <GoogleApiWrapper/> */}
+            <SimpleMap routesData={this.state.routesData}/>
           </div>
           <div id="routeList">
             <Table routesData={this.state.routesData}/>
