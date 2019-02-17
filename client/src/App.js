@@ -58,9 +58,14 @@ class App extends Component {
             Welcome to the Gentle Guide.
           </p>
         </header>
-        <h1>Routes</h1>
-        <div className="container" align="center">
-          <Table routesData={this.state.routesData}/>
+        {/* <h1>Routes</h1> */}
+        <div id="container">
+          <div id="map">
+            {/* <GoogleApiWrapper/> */}
+          </div>
+          <div id="routeList">
+            <Table routesData={this.state.routesData}/>
+          </div>
         </div>
       </div>
     );
