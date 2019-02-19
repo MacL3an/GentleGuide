@@ -21,6 +21,18 @@ app.get('/api/routes', function(req, res) {
           }
       },
       {
+        "name": "Annapiggen",
+        "duration": 5,
+        "ascent": 1200,
+        "elevation": 1300,
+        "terrainComplexity": 1,
+        "description": "A magnificent peak",
+        "trailHead": {
+          "x": "69.87584871428688",
+          "y": "20.206546093750035"
+        }
+    },
+    {
           "name": "Minitind",
           "duration": 2,
           "ascent": 300,

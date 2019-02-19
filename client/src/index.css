@@ -13,6 +13,10 @@ code {
     monospace;
 }
 
+table {
+  border-collapse: collapse;
+}
+
 #container{
   /* margin-top: 50px;
   margin-left: 50px;
@@ -40,5 +44,17 @@ code {
   width: 100%;
   /* height: 100%; */
   /* float: left; */
-  background-color: lightgray;
+  /* background-color: lightgray; */
+}
+
+tr.caution {
+  background-color: orange
+}
+
+tr.avoid {
+  background-color: lightcoral
+}
+
+tr.ok {
+  background-color: lightgreen
 }

@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
  
-const RouteMarker = ({ text }) => <div>{text}</div>;
+const RouteMarker = ({ text }) => {
+  return (<div>
+      <svg  width="10"  height="10">
+        <circle cx={5} cy={5} r={5} fill="red" />
+      </svg>
+      {text}
+  </div>)};
  
 class SimpleMap extends Component {
   static defaultProps = {
@@ -38,7 +44,7 @@ class SimpleMap extends Component {
   
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div style={{ height: '100%', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyBZXW3WjjoeCFtlafikDXWFySDMtH1CawM' }}
           center={this.props.center}
