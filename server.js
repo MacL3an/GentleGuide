@@ -26,12 +26,24 @@ app.get('/api/routes', function(req, res) {
         "ascent": 1200,
         "elevation": 1300,
         "terrainComplexity": 1,
-        "description": "A magnificent peak",
+        "description": "An almost magnificent peak",
         "trailHead": {
           "x": "69.87584871428688",
           "y": "20.206546093750035"
         }
     },
+    {
+      "name": "Hammarbybacken",
+      "duration": 1,
+      "ascent": 80,
+      "elevation": 100,
+      "terrainComplexity": 1,
+      "description": "Urban ski touring",
+      "trailHead": {
+        "x": "59.30131",
+        "y": "18.10931"
+      }
+  },
     {
           "name": "Minitind",
           "duration": 2,
@@ -44,7 +56,6 @@ app.get('/api/routes', function(req, res) {
             "y": "14.666664"
           }
       }
-
   ]);
 })
 

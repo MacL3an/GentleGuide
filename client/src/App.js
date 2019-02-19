@@ -21,11 +21,12 @@ class App extends Component {
           this.getAvalancheForecast(x,y).then(forecast => 
             {
               let routeCopy = { ...this.state.routesData[i] };
-              //TODO: Get [0] this safely
-              routeCopy.avalancheDanger = forecast[0].DangerLevel;
-              let routesCopy = this.state.routesData.slice();
-              routesCopy[i] = routeCopy;
-              this.setState({ routesData: routesCopy});
+              if (forecast && forecast[0]) {
+                routeCopy.avalancheDanger = forecast[0].DangerLevel;
+                let routesCopy = this.state.routesData.slice();
+                routesCopy[i] = routeCopy;
+                this.setState({ routesData: routesCopy});  
+              }
             }).catch(err => console.log(err));
         }
       })

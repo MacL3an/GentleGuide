@@ -35,12 +35,6 @@ class SimpleMap extends Component {
     //     name={route.name}
     //   />);
     });
-
-    // console.log(this.props.routesData);
-    // console.log(this.props.routesData && 
-    //   this.props.routesData[0] && 
-    //   this.props.routesData[0].trailHead.x);
-
   
     return (
       // Important! Always set the container height explicitly
@@ -48,18 +42,7 @@ class SimpleMap extends Component {
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyBZXW3WjjoeCFtlafikDXWFySDMtH1CawM' }}
           center={this.props.center}
-          zoom={this.props.zoom}
-          // initialCenter={this.props.initialCenter}
-          // initialCenter={{
-          //   lat: this.props.routesData && 
-          //   this.props.routesData[0] && 
-          //   this.props.routesData[0].trailHead.x,
-          //   lng: this.props.routesData && 
-          //   this.props.routesData[0] && 
-          //   this.props.routesData[0].trailHead.y
-          // }}
-        >
-          {/* <Marker name='test' position={{lat: 69.57584871428, lng: 20.20654}}/> */}
+          zoom={this.props.zoom}>
           {routes}
         </GoogleMapReact>
       </div>

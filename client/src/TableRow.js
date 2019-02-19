@@ -8,7 +8,7 @@ class TableRow extends Component {
             warningClass = "avoid";
         } else if (dangerLevel === 2 && this.props.rowData.terrainComplexity > 1) {
             warningClass = "caution";
-        } else if (dangerLevel === 1) {
+        } else if (dangerLevel <= 2) {
             warningClass = "ok";
         }
 

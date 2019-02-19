@@ -14,7 +14,8 @@ code {
 }
 
 table {
-  border-collapse: collapse;
+  text-align: left;
+  border-spacing: 0 3px;
 }
 
 #container{
