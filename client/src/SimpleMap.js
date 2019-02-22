@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
  
-const RouteMarker = ({ text }) => {
+const RouteMarker = ({ recommendation, text }) => {
+  let color = "grey";
+  if (recommendation === "ok") {
+    color = "green";
+  } else if (recommendation === "caution") {
+    color = "orange";
+  } else if (recommendation === "avoid") {
+    color = "red";
+  }
+
   return (<div>
       <svg  width="10"  height="10">
-        <circle cx={5} cy={5} r={5} fill="red" />
+        <circle cx={5} cy={5} r={5} fill={color} />
       </svg>
       {text}
   </div>)};
@@ -25,6 +34,7 @@ class SimpleMap extends Component {
         lat={route.trailHead.x}
         lng={route.trailHead.y}
         text={route.name}
+        recommendation={route.recommendation}
       />);
     //   return (<Marker
     //     position=

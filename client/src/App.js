@@ -4,6 +4,10 @@ import Table from './Table';
 import SimpleMap from './SimpleMap';
 
 class App extends Component {
+  // const recommendations = { "ok": 0,
+  //                           "caution": 1,
+  //                           "avoid": 2 }
+
   state = {
     routesData: [],
   };
@@ -23,6 +27,9 @@ class App extends Component {
               let routeCopy = { ...this.state.routesData[i] };
               if (forecast && forecast[0]) {
                 routeCopy.avalancheDanger = forecast[0].DangerLevel;
+                routeCopy.recommendation = this.getRecommendation(routeCopy);
+                console.log(routeCopy.recommendation);
+
                 let routesCopy = this.state.routesData.slice();
                 routesCopy[i] = routeCopy;
                 this.setState({ routesData: routesCopy});  
@@ -31,6 +38,19 @@ class App extends Component {
         }
       })
       .catch(err => console.log(err));
+  }
+
+  getRecommendation(route) {
+    let dangerLevel = parseInt(route.avalancheDanger);
+    let warningClass = null;
+    if (dangerLevel >= 3) {
+        warningClass = "avoid";
+    } else if (dangerLevel === 2 && route.terrainComplexity > 1) {
+        warningClass = "caution";
+    } else if (dangerLevel <= 2) {
+        warningClass = "ok";
+    }
+    return warningClass;
   }
 
   getRoutes = async () => {
