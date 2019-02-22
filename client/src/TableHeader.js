@@ -4,6 +4,7 @@ const TableHeader = () => {
     return (
         <thead>
             <tr>
+                <th>Recommendation</th>
                 <th>Avalanche danger</th>
                 <th>Name</th>
                 <th>Elevation</th>

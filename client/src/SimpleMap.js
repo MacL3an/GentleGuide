@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
  
 const RouteMarker = ({ recommendation, text }) => {
+  //TODO: Define colours in one common place
   let color = "grey";
   if (recommendation === "ok") {
     color = "green";

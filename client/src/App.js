@@ -41,6 +41,7 @@ class App extends Component {
   }
 
   getRecommendation(route) {
+    //TODO: Use enums
     let dangerLevel = parseInt(route.avalancheDanger);
     let warningClass = null;
     if (dangerLevel >= 3) {
