@@ -20,8 +20,8 @@ class App extends Component {
       .then(() => 
       {
         for (let i = 0; i < this.state.routesData.length; i++) {
-          let x = this.state.routesData[i].trailHead.x;
-          let y = this.state.routesData[i].trailHead.y;
+          let x = this.state.routesData[i].trailhead.x;
+          let y = this.state.routesData[i].trailhead.y;
           this.getAvalancheForecast(x,y).then(forecast => 
             {
               let routeCopy = { ...this.state.routesData[i] };
@@ -46,7 +46,7 @@ class App extends Component {
     let warningClass = null;
     if (dangerLevel >= 3) {
         warningClass = "avoid";
-    } else if (dangerLevel === 2 && route.terrainComplexity > 1) {
+    } else if (dangerLevel === 2 && route.terraincomplexity && route.terraincomplexity > 1) {
         warningClass = "caution";
     } else if (dangerLevel <= 2) {
         warningClass = "ok";
@@ -60,10 +60,6 @@ class App extends Component {
     if (response.status !== 200) throw Error(body.message);
     return body;
   };
-
-  getAvalancheForecast2 = async (x) => {
-    return x;
-  }
 
   getAvalancheForecast = async (x,y) => {
     const url = `/api/avalancheForecast/${x}/${y}/`;
@@ -82,7 +78,6 @@ class App extends Component {
             Welcome to the Gentle Guide.
           </p>
         </header>
-        {/* <h1>Routes</h1> */}
         <div id="container">
           <div id="map">
             <SimpleMap routesData={this.state.routesData}/>
@@ -91,6 +86,7 @@ class App extends Component {
             <Table routesData={this.state.routesData}/>
           </div>
         </div>
+        <div><p>You can edit the routes <a href="https://docs.google.com/spreadsheets/d/1-aIFZ5EafxqlgcVrkI_n_1Pp_NAikdjWALZXPypCp9U/edit#gid=0" target="_blank" rel="noopener noreferrer">here</a>.</p></div>
       </div>
     );
   }

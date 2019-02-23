@@ -5,59 +5,21 @@ const app = express();
 const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+var GoogleSpreadsheet = require('google-spreadsheet');
+const SPREADSHEET_ID = '1-aIFZ5EafxqlgcVrkI_n_1Pp_NAikdjWALZXPypCp9U';
 
 app.get('/api/routes', function(req, res) {
-  res.json([
-      {
-          "name": "Hakanpiggen",
-          "duration": 5,
-          "ascent": 1200,
-          "elevation": 1300,
-          "terrainComplexity": 3,
-          "description": "A magnificent peak",
-          "trailHead": {
-            "x": "69.57584871428688",
-            "y": "20.206546093750035"
-          }
-      },
-      {
-        "name": "Annapiggen",
-        "duration": 5,
-        "ascent": 1200,
-        "elevation": 1300,
-        "terrainComplexity": 1,
-        "description": "An almost magnificent peak",
-        "trailHead": {
-          "x": "69.87584871428688",
-          "y": "20.206546093750035"
-        }
-    },
-    {
-      "name": "Hammarbybacken",
-      "duration": 1,
-      "ascent": 80,
-      "elevation": 100,
-      "terrainComplexity": 1,
-      "description": "Urban ski touring",
-      "trailHead": {
-        "x": "59.30131",
-        "y": "18.10931"
+  var doc = new GoogleSpreadsheet(SPREADSHEET_ID);
+
+  // doc.useServiceAccountAuth(creds, function (err) {
+    doc.getRows(1, function (err, rows) {
+      for (let i = 0; i < rows.length; i++) {
+        rows[i].trailhead = JSON.parse(rows[i].trailhead);
       }
-  },
-    {
-          "name": "Minitind",
-          "duration": 2,
-          "ascent": 300,
-          "elevation": 400,
-          "terrainComplexity": 1,
-          "description": "A boring peak",
-          "trailHead": {
-            "x": "68.333332",
-            "y": "14.666664"
-          }
-      }
-  ]);
-})
+      res.json(rows);
+    });
+  // });
+});
 
 app.get('/api/avalancheForecast/:x/:y', function(req, res) {
   const url = `https://api01.nve.no/hydrology/forecast/avalanche/v4.0.2/api/AvalancheWarningByCoordinates/Simple/${req.params.x}/${req.params.y}/2/2019-02-11/2019-02-11`
@@ -66,12 +28,7 @@ app.get('/api/avalancheForecast/:x/:y', function(req, res) {
     .then(result => {
       res.json(result);
     });
-
-  //lyngseidet
-  //https://api01.nve.no/hydrology/forecast/avalanche/v4.0.2/api/AvalancheWarningByCoordinates/Simple/69.57584871428688/20.206546093750035/2/2019-02-11/2019-02-11
-
 });
-
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

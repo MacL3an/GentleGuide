@@ -32,8 +32,8 @@ class SimpleMap extends Component {
     const routes = this.props.routesData.map((route, index) => {
       return (<RouteMarker
         key={index}
-        lat={route.trailHead.x}
-        lng={route.trailHead.y}
+        lat={route.trailhead.x}
+        lng={route.trailhead.y}
         text={route.name}
         recommendation={route.recommendation}
       />);
