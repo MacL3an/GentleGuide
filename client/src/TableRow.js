@@ -5,7 +5,7 @@ class TableRow extends Component {
         return (
             <tr className={this.props.rowData.recommendation}>
                 <td>{this.props.rowData.recommendation}</td>
-                <td>{(this.props.rowData.avalancheForecast && this.props.rowData.avalancheForecast.DangerLevel)}</td>
+                <td>{(this.props.rowData.avalancheForecast && <a href={this.props.rowData.varsomlink} target="_blank" rel="noopener noreferrer">{this.props.rowData.avalancheForecast.DangerLevel}</a>)}</td>
                 <td>{this.props.rowData.name}</td>
                 <td>{this.props.rowData.elevation}</td>
                 <td>{this.props.rowData.ascent}</td>
