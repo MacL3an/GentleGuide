@@ -17,7 +17,7 @@ class App extends Component {
   //Seems wrong according to here: https://reactjs.org/docs/react-component.html#componentdidmount
   componentDidMount() {
     let today = new Date();
-    let dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+    let dateString = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
     this.setState({date: dateString});
 
     this.getRoutes()
@@ -129,7 +129,7 @@ class App extends Component {
             <SimpleMap routesData={this.state.routesData}/>
           </div>
           <div id="routeList">
-            <Table routesData={this.state.routesData}/>
+            <Table routesData={this.state.routesData} date={this.state.date}/>
           </div>
         </div>
         <div><p>You can edit the routes <a href="https://docs.google.com/spreadsheets/d/1-aIFZ5EafxqlgcVrkI_n_1Pp_NAikdjWALZXPypCp9U/edit#gid=0" target="_blank" rel="noopener noreferrer">here</a>.</p></div>
