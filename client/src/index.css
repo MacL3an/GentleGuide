@@ -21,7 +21,8 @@ table {
 
 #container{
   margin: 50px;
-  width: 90%;
+  /* TODO: Calculate width in a better way */
+  width: 90%; 
 }
 
 #map {
