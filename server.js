@@ -15,6 +15,7 @@ app.get('/api/routes', function(req, res) {
     doc.getRows(1, function (err, rows) {
       for (let i = 0; i < rows.length; i++) {
         rows[i].trailhead = JSON.parse(rows[i].trailhead);
+        rows[i].terraindetails = JSON.parse(rows[i].terraindetails);
       }
       res.json(rows);
     });
@@ -22,7 +23,7 @@ app.get('/api/routes', function(req, res) {
 });
 
 app.get('/api/avalancheForecast/:x/:y', function(req, res) {
-  const url = `https://api01.nve.no/hydrology/forecast/avalanche/v4.0.2/api/AvalancheWarningByCoordinates/Simple/${req.params.x}/${req.params.y}/2/2019-02-11/2019-02-11`
+  const url = `https://api01.nve.no/hydrology/forecast/avalanche/v4.0.2/api/AvalancheWarningByCoordinates/Detail/${req.params.x}/${req.params.y}/2/2019-02-11/2019-02-11`
   fetch(url)
     .then(result => result.json())  
     .then(result => {

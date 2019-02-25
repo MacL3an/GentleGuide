@@ -29,8 +29,8 @@ table {
 
 #map {
   display: table-cell;
-  width: 600px;
-  height: 600px;
+  width: 400px;
+  height: 400px;
   /* background-color: red; */
   float: left;
   margin-right: 50px;

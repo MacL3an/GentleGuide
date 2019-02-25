@@ -25,7 +25,7 @@ class SimpleMap extends Component {
       lat: 69.583331,
       lng: 20.2166658
     },
-    zoom: 6,
+    zoom: 5,
   };
  
   render() {
@@ -37,14 +37,6 @@ class SimpleMap extends Component {
         text={route.name}
         recommendation={route.recommendation}
       />);
-    //   return (<Marker
-    //     position=
-    //       {{
-    //         lat: route.trailHead.x,
-    //         lng: route.trailHead.y
-    //       }}
-    //     name={route.name}
-    //   />);
     });
   
     return (

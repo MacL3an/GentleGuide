@@ -26,9 +26,8 @@ class App extends Component {
             {
               let routeCopy = { ...this.state.routesData[i] };
               if (forecast && forecast[0]) {
-                routeCopy.avalancheDanger = forecast[0].DangerLevel;
+                routeCopy.avalancheForecast = forecast[0];
                 routeCopy.recommendation = this.getRecommendation(routeCopy);
-                console.log(routeCopy.recommendation);
 
                 let routesCopy = this.state.routesData.slice();
                 routesCopy[i] = routeCopy;
@@ -40,16 +39,57 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
+  isAspectExposed(expostitions, aspect) {
+    switch (aspect) {
+      case ("N"):
+        return expostitions[0] === "1";
+      case ("NE"):
+        return expostitions[1] === "1";
+      case ("E"):
+        return expostitions[2] === "1";
+      case ("SE"):
+        return expostitions[3] === "1";
+      case ("S"):
+        return expostitions[4] === "1";
+      case ("SW"):
+        return expostitions[5] === "1";
+      case ("W"):
+        return expostitions[6] === "1";
+      case ("NW"):
+        return expostitions[7] === "1";
+      default:
+        return true; //rather safe than sorry?
+      }
+    }
+
   getRecommendation(route) {
+    let slopeExposed = false;
+    for (let i = 0; i < route.avalancheForecast.AvalancheProblems.length; i++) {
+      const problem = route.avalancheForecast.AvalancheProblems[i];
+      const problemFrom = problem.ExposedHeight2;
+      const problemTo = problem.ExposedHeight1;
+
+      for (let j = 0; j < route.terraindetails.length; j++) {
+        const terrain = route.terraindetails[j];
+        if ((problemFrom <= terrain.from && terrain.from <= problemTo) ||
+          (problemFrom <= terrain.to && terrain.to <= problemTo)) {
+          if (this.isAspectExposed(problem.ValidExpositions, terrain.aspect)) {
+            slopeExposed = true;
+            break;
+          }
+        }
+      }      
+    }
+
     //TODO: Use enums
-    let dangerLevel = parseInt(route.avalancheDanger);
+    let dangerLevel = parseInt(route.avalancheForecast.DangerLevel);
     let warningClass = null;
-    if (dangerLevel >= 3) {
-        warningClass = "avoid";
-    } else if (dangerLevel === 2 && route.terraincomplexity && route.terraincomplexity > 1) {
-        warningClass = "caution";
-    } else if (dangerLevel <= 2) {
-        warningClass = "ok";
+    if (dangerLevel === 5 || dangerLevel === 4 || (dangerLevel === 3 && slopeExposed)) {
+      warningClass = "avoid";
+    } else if ((dangerLevel === 3 || dangerLevel === 2) && slopeExposed) {
+      warningClass = "caution";      
+    } else {
+      warningClass = "ok";
     }
     return warningClass;
   }
