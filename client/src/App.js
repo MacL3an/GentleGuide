@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import './App.css';
 import Table from './Table';
 import SimpleMap from './SimpleMap';
+import DatePicker from './DatePicker';
 
 class App extends Component {
   // const recommendations = { "ok": 0,
   //                           "caution": 1,
   //                           "avoid": 2 }
-
   state = {
     routesData: [],
+    date: null,
   };
 
   //TODO: Investigate if this is apporiate. 
   //Seems wrong according to here: https://reactjs.org/docs/react-component.html#componentdidmount
   componentDidMount() {
+    let today = new Date();
+    let dateString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+    this.setState({date: dateString});
+
     this.getRoutes()
       .then(res => this.setState({ routesData: res }))
       .then(() => 
@@ -22,7 +27,7 @@ class App extends Component {
         for (let i = 0; i < this.state.routesData.length; i++) {
           let x = this.state.routesData[i].trailhead.x;
           let y = this.state.routesData[i].trailhead.y;
-          this.getAvalancheForecast(x,y).then(forecast => 
+          this.getAvalancheForecast(x, y, this.state.date).then(forecast => 
             {
               let routeCopy = { ...this.state.routesData[i] };
               if (forecast && forecast[0]) {
@@ -101,8 +106,8 @@ class App extends Component {
     return body;
   };
 
-  getAvalancheForecast = async (x,y) => {
-    const url = `/api/avalancheForecast/${x}/${y}/`;
+  getAvalancheForecast = async (x,y,date) => {
+    const url = `/api/avalancheForecast/${x}/${y}/${date}`;
     const response = await fetch(url);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
@@ -118,6 +123,7 @@ class App extends Component {
             Welcome to the Gentle Guide.
           </p>
         </header>
+        <div><DatePicker date={this.state.date}/></div>
         <div id="container">
           <div id="map">
             <SimpleMap routesData={this.state.routesData}/>
