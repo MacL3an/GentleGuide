@@ -14,37 +14,41 @@ class DatePicker extends Component {
     }
     
     handleChange(event) {
+        console.log('onchange');
         this.setState({date: event.target.value});
       }
     
     handleSubmit(event) {
         console.log('submitting');
         // this.handleChange(event);
+        console.log(this.state.date);
         this.props.updateRecommendations(this.state.date);
         event.preventDefault();
     }
 
     oneDayAhead() {
         console.log("forward: " + this.state.date);
-        let currentDate = new Date(this.state.date + " GMT"); //TODO: Fix for all time zones
-        currentDate.setDate(currentDate.getDate() + 1)
-        this.setState({date: currentDate.toISOString().substr(0, 10)});
+        let dateCopy = new Date(this.state.date.getTime());
+        dateCopy.setDate(dateCopy.getDate() + 1);
+        this.setState({date: dateCopy});
+        this.props.updateRecommendations(dateCopy);
     }
 
     oneDayBack() {
         console.log("back: " + this.state.date);
-        let currentDate = new Date(this.state.date + " GMT");
-        currentDate.setDate(currentDate.getDate() - 1)
-        this.setState({date: currentDate.toISOString().substr(0, 10)});
+        let dateCopy = new Date(this.state.date.getTime());
+        dateCopy.setDate(dateCopy.getDate() - 1);
+        this.setState({date: dateCopy});
+        this.props.updateRecommendations(dateCopy);
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 Currently showing recommendations based on avalanche forecast for: 
-                <button onClick={this.oneDayBack}>&larr;</button>
-                <input type="text" name="dateInput" size="12" value={this.state.date} onChange={this.handleChange}></input>
-                <button onClick={this.oneDayAhead}>&rarr;</button>
+                <button type="button" onClick={this.oneDayBack}>&larr;</button>
+                <input type="text" name="dateInput" size="12" value={this.state.date.toISOString().substr(0, 10)} onChange={this.handleChange}></input>
+                <button type="button" onClick={this.oneDayAhead}>&rarr;</button>
             </form>
         );
     }

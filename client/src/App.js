@@ -7,11 +7,9 @@ import DatePicker from './DatePicker';
 class App extends Component {
   constructor(props) {
     super(props);
-    let today = new Date();
-    let dateString = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
     this.state = {
       routesData: [],
-      date: dateString,
+      date: new Date(),
     };
   }
   // const recommendations = { "ok": 0,
@@ -114,7 +112,8 @@ class App extends Component {
   };
 
   getAvalancheForecast = async (x,y,date) => {
-    const url = `/api/avalancheForecast/${x}/${y}/${date}`;
+    const dateString = date.toISOString().substr(0, 10);
+    const url = `/api/avalancheForecast/${x}/${y}/${dateString}`;
     const response = await fetch(url);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
@@ -137,7 +136,7 @@ class App extends Component {
             <SimpleMap routesData={this.state.routesData}/>
           </div>
           <div id="routeList">
-            <Table routesData={this.state.routesData} date={this.state.date}/>
+            <Table routesData={this.state.routesData} date={this.state.date.toISOString().substr(0, 10)}/>
           </div>
         </div>
         <div><p>You can edit the routes <a href="https://docs.google.com/spreadsheets/d/1-aIFZ5EafxqlgcVrkI_n_1Pp_NAikdjWALZXPypCp9U/edit#gid=0" target="_blank" rel="noopener noreferrer">here</a>.</p></div>
