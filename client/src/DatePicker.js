@@ -33,7 +33,7 @@ class DatePicker extends Component {
 
     oneDayBack() {
         console.log("back: " + this.state.date);
-        let currentDate = new Date(this.state.date);
+        let currentDate = new Date(this.state.date + " GMT");
         currentDate.setDate(currentDate.getDate() - 1)
         this.setState({date: currentDate.toISOString().substr(0, 10)});
     }
@@ -42,9 +42,9 @@ class DatePicker extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 Currently showing recommendations based on avalanche forecast for: 
-                <button type="button" onClick={this.oneDayBack}>&larr;</button>
+                <button onClick={this.oneDayBack}>&larr;</button>
                 <input type="text" name="dateInput" size="12" value={this.state.date} onChange={this.handleChange}></input>
-                <button type="button" onClick={this.oneDayAhead}>&rarr;</button>
+                <button onClick={this.oneDayAhead}>&rarr;</button>
             </form>
         );
     }
