@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class TableRow extends Component {
     render() {
-        const link = this.props.rowData.varsomlink + '/' + this.props.date;
+        const link = this.props.rowData.varsomlink + this.props.date;
         return (
             <tr className={this.props.rowData.recommendation}>
                 <td>{this.props.rowData.recommendation}</td>

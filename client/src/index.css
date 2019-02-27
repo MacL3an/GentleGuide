@@ -20,7 +20,7 @@ table {
 }
 
 #container{
-  margin: 50px;
+  margin: 5%;
   /* TODO: Calculate width in a better way */
   width: 90%; 
 }
