@@ -11,7 +11,6 @@ class TableRow extends Component {
                 <td>{this.props.rowData.elevation}</td>
                 <td>{this.props.rowData.ascent}</td>
                 <td>{this.props.rowData.duration}</td>
-                <td>{this.props.rowData.terraincomplexity}</td>
                 <td>{this.props.rowData.description}</td>
             </tr>
         );

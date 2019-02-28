@@ -10,7 +10,6 @@ const TableHeader = () => {
                 <th>Elevation</th>
                 <th>Ascent</th>
                 <th>Duration</th>
-                <th>Terrain complexity</th>
                 <th>Description</th>
             </tr>
         </thead>
