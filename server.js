@@ -12,12 +12,20 @@ app.get('/api/routes', function(req, res) {
   var doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
   // doc.useServiceAccountAuth(creds, function (err) {
+    let routes = [];
     doc.getRows(1, function (err, rows) {
       for (let i = 0; i < rows.length; i++) {
-        rows[i].trailhead = JSON.parse(rows[i].trailhead);
-        rows[i].terraindetails = JSON.parse(rows[i].terraindetails);
+        console.log(rows[i].name);
+        let row = rows[i];
+        if (row.name && row.name && row.trailhead && row.terraindetails) {
+          row.trailhead = JSON.parse(row.trailhead);
+          row.terraindetails = JSON.parse(row.terraindetails);
+          if (row.trailhead.x && row.trailhead.y) {
+            routes.push(row);  
+          }
+        }
       }
-      res.json(rows);
+      res.json(routes);
     });
   // });
 });
