@@ -3,6 +3,7 @@ import './App.css';
 import Table from './Table';
 import SimpleMap from './SimpleMap';
 import DatePicker from './DatePicker';
+import { RecommendationEnum } from './recommendations.js'
 
 class App extends Component {
   constructor(props) {
@@ -12,9 +13,6 @@ class App extends Component {
       date: new Date(),
     };
   }
-  // const recommendations = { "ok": 0,
-  //                           "caution": 1,
-  // //                           "avoid": 2 }
 
   //TODO: Investigate if this is apporiate. 
   //Seems wrong according to here: https://reactjs.org/docs/react-component.html#componentdidmount
@@ -91,17 +89,16 @@ class App extends Component {
       }      
     }
 
-    //TODO: Use enums
     let dangerLevel = parseInt(route.avalancheForecast.DangerLevel);
-    let warningClass = null;
+    let recommendation = null;
     if (dangerLevel === 5 || dangerLevel === 4 || (dangerLevel === 3 && slopeExposed)) {
-      warningClass = "avoid";
+      recommendation = RecommendationEnum.AVOID;
     } else if (dangerLevel === 3 || (dangerLevel === 2 && slopeExposed)) {
-      warningClass = "caution";      
+      recommendation = RecommendationEnum.CAUTION;
     } else {
-      warningClass = "ok";
+      recommendation = RecommendationEnum.OK;
     }
-    return warningClass;
+    return recommendation;
   }
 
   getRoutes = async () => {

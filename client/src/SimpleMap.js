@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
- 
+import { RecommendationEnum } from './recommendations.js'
+
 const RouteMarker = ({ recommendation, text }) => {
   //TODO: Define colours in one common place
   let color = "grey";
-  if (recommendation === "ok") {
-    color = "green";
-  } else if (recommendation === "caution") {
-    color = "orange";
-  } else if (recommendation === "avoid") {
-    color = "red";
+  if (recommendation) {
+    color = RecommendationEnum.properties[recommendation].color;
   }
 
   return (<div>
