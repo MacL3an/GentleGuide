@@ -29,7 +29,7 @@ class DatePicker extends Component {
 
     render() {
         return (<div>
-                Currently showing recommendations based on avalanche forecast for <br/><br/>
+                Showing recommendations based on avalanche forecast for <br/><br/>
                     <button type="button" onClick={this.oneDayBack}>&larr;</button>
                     &nbsp;{this.state.date.toISOString().substr(0, 10)}&nbsp;
                     <button type="button" onClick={this.oneDayAhead}>&rarr;</button>

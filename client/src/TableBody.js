@@ -4,7 +4,7 @@ import TableRow from './TableRow';
 const TableBody = props => {
     const rows = props.routesData.map((row, index) => {
         return (
-            <TableRow rowData={row} key={index} date = {props.date}/> 
+            <TableRow rowData={row} key={`${row.name}-${row.trailhead.x}-${row.trailhead.y}`} date = {props.date}/> 
         );
     });
     return (

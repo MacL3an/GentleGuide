@@ -71,7 +71,12 @@ class App extends Component {
     }
 
   getRecommendation(route) {
+    if (!route.terraindetails || route.terraindetails.length === 0) {
+      return null;
+    }
+
     let slopeExposed = false;
+
     for (let i = 0; i < route.avalancheForecast.AvalancheProblems.length; i++) {
       const problem = route.avalancheForecast.AvalancheProblems[i];
       const problemFrom = problem.ExposedHeight2;
