@@ -32,7 +32,7 @@ class DatePicker extends Component {
                 Showing recommendations based on avalanche forecast for <br/><br/>
                     <button type="button" onClick={this.oneDayBack}>&larr;</button>
                     &nbsp;{this.state.date.toISOString().substr(0, 10)}&nbsp;
-                    <button type="button" onClick={this.oneDayAhead}>&rarr;</button>
+                    <button type="button" onClick={this.oneDayAhead}>&rarr;</button> <br/><br/>
                 </div>
         );
     }

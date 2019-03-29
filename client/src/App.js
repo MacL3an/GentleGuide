@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route as BrowserRoute, Link } from "react-router-dom";
 import './App.css';
 import Table from './Table';
 import SimpleMap from './SimpleMap';
 import DatePicker from './DatePicker';
 import { RecommendationEnum } from './recommendations.js'
+import RouteDetails from './RouteDetails';
 
 class App extends Component {
   constructor(props) {
@@ -122,29 +124,38 @@ class App extends Component {
     return body;
   };
 
-  
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Welcome to the Gentle Guide.
-          </p>
-        </header>
-        <div><DatePicker date={this.state.date} 
-          updateRecommendations={this.updateDateAndRecommendations.bind(this)}/></div>
-        <div id="container">
-          <div id="map">
-            <SimpleMap routesData={this.state.routesData}/>
-          </div>
-          <div id="routeList">
-            <Table routesData={this.state.routesData} date={this.state.date.toISOString().substr(0, 10)}/>
-          </div>
+    const Routes = () =>  {
+      return (
+      <div id="container">
+        <div><DatePicker date={this.state.date} updateRecommendations={this.updateDateAndRecommendations.bind(this)}/></div>
+        <div id="map">
+          <SimpleMap routesData={this.state.routesData}/>
+        </div>
+        <div id="routeList">
+          <Table routesData={this.state.routesData} date={this.state.date.toISOString().substr(0, 10)}/>
         </div>
         <div><p>You can edit the routes <a href="https://docs.google.com/spreadsheets/d/1-aIFZ5EafxqlgcVrkI_n_1Pp_NAikdjWALZXPypCp9U/edit#gid=0" target="_blank" rel="noopener noreferrer">here</a>.</p></div>
       </div>
     );
+    }
+
+    return (
+      <BrowserRouter>
+      <div className="App">
+        <header className="App-header">
+          <p>
+            Welcome to the Gentle Guide <Link to="/">.</Link>
+          </p>
+        </header>
+      <BrowserRoute exact path="/" component={Routes} />
+      <BrowserRoute path="/details/:routeName" component={RouteDetails}  />
+      </div>
+      </BrowserRouter>
+    );
   }
+
 }
 
 export default App;
