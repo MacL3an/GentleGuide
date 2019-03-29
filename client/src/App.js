@@ -128,8 +128,8 @@ class App extends Component {
   render() {
     const Routes = () =>  {
       return (
-      <div id="container">
-        <div><DatePicker date={this.state.date} updateRecommendations={this.updateDateAndRecommendations.bind(this)}/></div>
+        <div>
+        <DatePicker date={this.state.date} updateRecommendations={this.updateDateAndRecommendations.bind(this)}/>
         <div id="map">
           <SimpleMap routesData={this.state.routesData}/>
         </div>
@@ -146,11 +146,13 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <p>
-            Welcome to the Gentle Guide <Link to="/">.</Link>
+            The Gentle Guide <Link to="/">.</Link>
           </p>
         </header>
-      <BrowserRoute exact path="/" component={Routes} />
-      <BrowserRoute path="/details/:routeName" component={RouteDetails}  />
+        <div id="container">        
+          <BrowserRoute exact path="/" component={Routes} />
+          <BrowserRoute path="/details/:routeName" component={RouteDetails}  />
+        </div>
       </div>
       </BrowserRouter>
     );
