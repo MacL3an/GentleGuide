@@ -50,6 +50,7 @@ class App extends Component {
   }
 
   isAspectExposed(expostitions, aspect) {
+    // console.log(aspect);
     switch (aspect) {
       case ("N"):
         return expostitions[0] === "1";
@@ -76,22 +77,28 @@ class App extends Component {
     if (!route.terraindetails || route.terraindetails.length === 0) {
       return null;
     }
-
+    // console.log(route.name);
+    // console.log(route.avalancheForecast);
     let slopeExposed = false;
 
     for (let i = 0; i < route.avalancheForecast.AvalancheProblems.length; i++) {
       const problem = route.avalancheForecast.AvalancheProblems[i];
-      const problemFrom = problem.ExposedHeight2;
-      const problemTo = problem.ExposedHeight1;
+      const problemHeightMain = problem.ExposedHeight1;
+      const problemHeightLower = problem.ExposedHeight2;
+      const problemHeightFill = problem.ExposedHeightFill;
 
       for (let j = 0; j < route.terraindetails.length; j++) {
         const terrain = route.terraindetails[j];
-        if ((problemFrom <= terrain.from && terrain.from <= problemTo) ||
-          (problemFrom <= terrain.to && terrain.to <= problemTo)) {
-          if (this.isAspectExposed(problem.ValidExpositions, terrain.aspect)) {
-            slopeExposed = true;
-            break;
-          }
+        if (this.isHeightExposed(terrain, problemHeightMain, problemHeightLower, problemHeightFill)) {
+            // console.log("height");
+            for (let k = 0; k < terrain.aspect.length; k++) {
+              const aspect = terrain.aspect[k];
+              if (this.isAspectExposed(problem.ValidExpositions, aspect)) {
+                // console.log("aspect"); 
+                slopeExposed = true;
+                break;
+              }  
+            }
         }
       }      
     }
@@ -124,6 +131,28 @@ class App extends Component {
     return body;
   };
 
+
+  isHeightExposed(terrain, problemHeight, problemHeightLower, problemHeightFill) {
+    if (problemHeightFill === 1) //Gjelder over gitt høyde (ExposedHeight1)	 
+    {
+      return (problemHeight <= terrain.to) //TODO: Test!
+    } else if (problemHeightFill === 2) //Gjelder under gitt høyde (ExposedHeight1)	
+    {
+      return (terrain.from <= problemHeight) //TODO: Test!      
+    } else if (problemHeightFill === 3) //Gjelder over og under gitt høyde (ExposedHeight1, ExposedHeight2)	
+    {
+      console.log("TODO!! fill 3")
+      return true;
+    } else if (problemHeightFill === 4) //Gjelder mellom gitt høyde (ExposedHeight1, ExposedHeight2)
+    {
+      return (terrain.from <= problemHeightLower && problemHeightLower <= terrain.to) ||
+              (terrain.from <= problemHeight && problemHeight <= terrain.to) ||
+              (problemHeightLower <= terrain.from && terrain.from <= problemHeight) ||
+              (problemHeightLower <= terrain.to && terrain.to <= problemHeight);      
+    }
+    return true; //rather safe than sorry...
+
+  }
 
   render() {
     const Routes = () =>  {
